@@ -20,9 +20,9 @@ switch output_type
     case "matrix"
         im_transform = fft2(im);
     case 'real-matrix'
-        im_transform =abs(fft2(im));
+        im_transform =log(abs(fft2(im)));
     case 'vizualize'
-        im_transform=fftshift(abs(fft2(im)));
+        im_transform=fftshift(log(abs(fft2(im))));
         imshow(rescaling(im_transform));
     otherwise
         error('Incorrect output type')

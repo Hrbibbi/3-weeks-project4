@@ -4,7 +4,7 @@ function im = generate_simdata(K, texture_files)
 % the following randomly placed figures : a circle, a triangle and a
 % square.
 %
-% Usage: im = generate_simdata(K)
+% Usage: im = generate_simdata(K, texture_files)
 % Inputs: K is the size of the image.
 %         texture_files (optional): a string, the path of a folder
 %         containing three texture images

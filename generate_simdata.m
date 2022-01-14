@@ -10,7 +10,7 @@ function im = generate_simdata(K, texture_files)
 %         containing three texture images
 % Output: K*K sized black image with randomly placed figures.
 %
-% Date: 13/01/2022
+% Date: 01-2022
 
 % Create the shapes in square matrices of size K/3
 
@@ -37,7 +37,7 @@ switch nargin
             error('second argument must be a correct folder path string.')
         end
 
-        % apply the textures if a folder path is given
+        % Apply the textures if a folder path is given
         listing = dir(texture_files);
         listing = listing(~[listing.isdir]);
 

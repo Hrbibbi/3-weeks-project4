@@ -64,6 +64,7 @@ end
 % Generate random coordinates for the shapes, while making sure that the
 % entire shapes are in the image
 coords = floor(rand(3,2)*(K-k));
+coords(coords == 0) = 1;
 
 % Return the image
 im = zeros(K);

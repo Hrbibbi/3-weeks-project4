@@ -2,7 +2,7 @@ function im_noisy = addnoise(im,tau,varargin)
 % Adds noise to either a normal or DFT image.
 % --- Input arguments ---
 % im: 2D array image
-% pc: percentage either as a decimal (default) or in [0,100].
+% tau: percentage either as a decimal (default) or in [0,100].
 % varargin{1} (optional argument): specify 'p' if tau is in [0,100].
 % --- Output arguments ---
 % im_noisy: 2D array of image with noise

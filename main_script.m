@@ -3,7 +3,37 @@ clear all
 close all
 clc
 
-%% 2D DFT på testbillederne
+%% Generate test images
+% Change this if the folder is located elsewhere.
+path_texture_files = 'textureFiles'; 
+
+test_uden = generate_simdata(256);
+test_med  = generate_simdata(256,path_texture_files);
+shepp_logan = phantom('Modified Shepp-Logan',256);
+
+% Save the images
+imwrite(uint8(255*test_uden),'test_uden.png');
+imwrite(uint8(255*test_med),'test_med.png');
+imwrite(uint8(255*shepp_logan),'Shepp-logan.png');
+
+% Show the created random images
+figure(1)
+sgtitle('Simuleret data')
+
+subplot(1,3,1)
+imshow(test_uden);
+title('Testbilledet uden tekstur')
+
+subplot(1,3,2)
+imshow(test_med);
+title('Testbilledet med tekstur')
+
+subplot(1,3,3)
+imshow(shepp_logan);
+title('Shepp Logan')
+
+%% 2D DFT on test images
+close all
 figure(1)
 sgtitle('2D DFT på testbilleder')
 

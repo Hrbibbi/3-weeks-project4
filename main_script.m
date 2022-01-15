@@ -105,6 +105,29 @@ for k = 1:3
     title([titler{k} ', støjfyldt'])
 end
 
+%% Vektor af støjniveauer
+figure(5)
+sgtitle('Vektor af støjniveauer')
+TB = 1; % testbillede nr.
+vec_N = [1,10,25,75];
+for k = 1:4
+    S(TB).vN(k).DFT = addnoise(S(TB).DFT,vec_N(k),'p');
+    S(TB).vN(k).inv = ifft2(S(TB).vN(k).DFT);
+    subplot(1,4,k)
+    im_plot = log(abs( S(TB).vN(k).inv ) + 1);
+    imshow(im_plot,[])
+    title(sprintf('%d%% støj',vec_N(k)))
+    vec_E(k) = error_measure(S(TB).im,S(TB).vN(k).inv);
+end
+
+figure(6)
+plot(vec_N,vec_E,'bo')
+hold on
+plot(vec_N,vec_E,'r-')
+title('Rekonstruktion med vektor af støjniveauer')
+xlabel('Støjniveau / %')
+ylabel('Rekronstruktionsfejl (andel)')
+
 %% Test ortho-slices
 fft_data = load('Data/head.mat');
 vol = fft_data.headRe + fft_data.headIm;

@@ -7,6 +7,7 @@ clc
 figure(1)
 sgtitle('2D DFT på testbilleder')
 
+% depends on the file names created in current dir, if different just change them to the corresponding ones
 images = {'test_uden.png','test_med.png','Shepp-logan.png'};
 titler = {'Uden tekstur','Med tekstur','Shepp-Logan'};
 for k = 1:3

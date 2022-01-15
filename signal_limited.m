@@ -38,6 +38,8 @@ switch options
 
     case 'random'
         lim_signal = zeros(size(signal));
+        
+        % Randomly select data
         K = rand(size(signal));
         i = find(K >= frac);
         lim_signal(i) = signal(i);

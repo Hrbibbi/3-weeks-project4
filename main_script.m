@@ -127,18 +127,37 @@ plot(vec_N,vec_E,'r-')
 title('Rekonstruktion med vektor af støjniveauer')
 xlabel('Støjniveau / %')
 ylabel('Rekronstruktionsfejl (andel)')
+%% Musehjerte og hoved
+heart = load(['Data\mouseheart.mat']);
+heart = heart.mouse;
+recon_heart = recon_volume(heart,1:size(heart,3));
+
+head = load('Data\head.mat');
+head = head.headRe + head.headIm*1i;
+recon_head = recon_volume(head,1:size(head,3));
 
 %% Test ortho-slices
-fft_data = load('Data/head.mat');
-vol = fft_data.headRe + fft_data.headIm;
-vol_recon = recon_volume(vol,1:size(vol,3));
-[O1,O2,O3] = ortho_slices(vol_recon,10,25,50);
+[O1,O2,O3] = ortho_slices(recon_head,10,200,200);
+
 figure(1)
+
 for k = 1:3
     n = num2str(k);
-    subplot(1,3,k)
+    subplot(2,3,k)
     O_n = eval(['O' n]);
     imshow(log(abs(O_n)),[])
     title(['Slice ' n])
 end
 
+
+% Resizing the lateral slices, otherwise the image is too thin to see
+% anything
+O2 = imresize(O2,[256,256]);
+O3 = imresize(O3,[256,256]);
+
+subplot(2,3,5)
+imshow(log(abs(O2)),[]);
+title('Slice 2 resized')
+subplot(2,3,6)
+imshow(log(abs(O3)),[]);
+title('Slice 3 resized')

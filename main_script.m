@@ -81,8 +81,8 @@ for k = 1:3
     subplot(2,3,3+k)
     % er stadigvæk ikke sikker på hvad det bedste er at gøre her med at
     % transformere det støjfyldte tilbage
-    im_plot = log((abs(S(k).inv_N))+0.1);
-    imshow(abs(S(k).inv_N),[])
+    im_plot = abs(S(k).inv_N);
+    imshow(im_plot,[])
     title([titler{k} ', støjfyldt'])
 end
 

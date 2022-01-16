@@ -183,3 +183,23 @@ subplot(1,3,3)
 imshow(log(abs(O3)),[]);
 title ('Slice 3');
 
+%% Ukendt Data B
+
+B = load('Data\B.mat');
+B = B.B;
+B = recon_volume(B,1:70);
+[O1,O2,O3] = ortho_slices(B,60,60,35);
+
+figure(1)
+sgtitle('Ukendt data: objekt B')
+subplot(1,3,1)
+imshow(log(abs(O1)),[]);
+title ('Slice 1');
+
+subplot(1,3,2)
+imshow(log(abs(O2)),[]);
+title ('Slice 2');
+
+subplot(1,3,3)
+imshow(log(abs(O3)),[]);
+title ('Slice 3');

@@ -5,7 +5,7 @@ function vol_out = recon_volume(vol_in,slice_vec)
 % slice_vec: vector that recounts which slices to be reconstructed
 % --- Output arguments ---
 % vol_out: 3D array of the reconstructed slices
-% Date: 14/01/2022
+% Date: 01-2022
 
 % Checks if all elements of slice_vec is contained in the 3rd dimension of vol_in
 if ~all(ismember(slice_vec, 1:size(vol_in,3)))

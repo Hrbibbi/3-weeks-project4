@@ -12,18 +12,5 @@ if ~all(ismember(slice_vec, 1:size(vol_in,3)))
     error('Invalid slice vector.')
 end
 
-% Fetch the original slices to be reconstructed
-slices = vol_in(:,:,slice_vec);
-for i = 1:length(slice_vec)
-    slices(:,:,i) = recon_2D(slices(:,:,i));
-end
-
-% Insert the reconstructed slices back in
-vol_in(:,:,slice_vec) = slices;
-vol_out = vol_in;
-end
-
-function recon = recon_2D(slice)
-% Reconstruct slices
-recon = ifft2( fftshift(fftshift(slice)) );
-end
+% Perform inverse fourier transorm on selected slices
+vol_out(:,:,1:length(slice_vec)) = ifft2(vol_in(:,:,slice_vec));

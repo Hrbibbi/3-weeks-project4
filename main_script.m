@@ -108,7 +108,7 @@ end
 %% Vektor af støjniveauer
 figure(5)
 sgtitle('Vektor af støjniveauer')
-TB = 1; % testbillede nr.
+TB = 2; % testbillede nr.
 vec_N = [1,10,25,75];
 for k = 1:4
     S(TB).vN(k).DFT = addnoise(S(TB).DFT,vec_N(k),'p');

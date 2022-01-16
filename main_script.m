@@ -180,6 +180,6 @@ imshow(log(abs(O2)),[]);
 title ('Slice 2');
 
 subplot(1,3,3)
-imshow(log(abs(O2)),[]);
+imshow(log(abs(O3)),[]);
 title ('Slice 3');
 

@@ -127,6 +127,7 @@ plot(vec_N,vec_E,'r-')
 title('Rekonstruktion med vektor af støjniveauer')
 xlabel('Støjniveau / %')
 ylabel('Rekronstruktionsfejl (andel)')
+
 %% Musehjerte og hoved
 heart = load(['Data\mouseheart.mat']);
 heart = heart.mouse;
@@ -161,3 +162,24 @@ title('Slice 2 resized')
 subplot(2,3,6)
 imshow(log(abs(O3)),[]);
 title('Slice 3 resized')
+
+%% Ukendt Data A
+A = load('Data\A.mat');
+A = A.A;
+A = recon_volume(A,1:256);
+[O1,O2,O3] = ortho_slices(A,130,130,130);
+
+figure(1)
+sgtitle('Ukendt data: objekt A')
+subplot(1,3,1)
+imshow(log(abs(O1)),[]);
+title ('Slice 1');
+
+subplot(1,3,2)
+imshow(log(abs(O2)),[]);
+title ('Slice 2');
+
+subplot(1,3,3)
+imshow(log(abs(O2)),[]);
+title ('Slice 3');
+

@@ -90,7 +90,7 @@ frac = 0.1;
 sgtitle(sprintf('Sampling i DFT med en andel på %d%%',frac*100))
 
 for k = 1:3
-    S(k).lim = signal_limited(S(k).DFT,frac,'middle');
+    S(k).lim = signal_limited(S(k).DFT,frac);
     subplot(2,3,k)
     im_plot = abs(ifft2(fftshift(S(k).lim)));
     imshow(im_plot,[])
@@ -98,7 +98,7 @@ for k = 1:3
 end
 
 for k = 1:3
-    S(k).lim_N = signal_limited(S(k).DFT_N,frac,'middle');
+    S(k).lim_N = signal_limited(S(k).DFT_N,frac);
     subplot(2,3,3+k)
     im_plot = abs(ifft2(fftshift(S(k).lim_N)));
     imshow(im_plot,[])

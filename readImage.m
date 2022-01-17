@@ -8,5 +8,5 @@ function im = readImage(fileName)
 
 im = imread(fileName);
 if any(im > 1)
-    im = 1/255*double();
+    im = 1/255*double(im);
 end

@@ -218,16 +218,16 @@ A = recon_volume(A,1:256);
 
 figure(13)
 sgtitle('Ukendt data: objekt A')
-subplot(1,3,1)
+subplot(2,2,1)
 imshow(abs(O1),[]);
 title ('Slice 1');
 
-subplot(1,3,2)
+subplot(2,2,2)
 imshow(abs(O2),[]);
 title ('Slice 2');
 
-subplot(1,3,3)
-imshow(abs(O3),[]);
+subplot(2,2,3)
+imshow(imrotate(abs(O3),90),[]);
 title ('Slice 3');
 
 %% Ukendt Data B
@@ -239,14 +239,14 @@ B = recon_volume(B,1:70);
 
 figure(14)
 sgtitle('Ukendt data: objekt B')
-subplot(1,3,1)
+subplot(2,2,1)
 imshow(abs(O1),[]);
 title ('Slice 1');
 
-subplot(1,3,2)
+subplot(2,2,2)
 imshow(abs(O2),[]);
 title ('Slice 2');
 
-subplot(1,3,3)
-imshow(abs(O3),[]);
+subplot(2,2,3)
+imshow(imrotate(abs(O3),90),[]);
 title ('Slice 3');

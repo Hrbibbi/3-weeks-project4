@@ -134,7 +134,7 @@ figure(8)
 sgtitle('Vektor af samplings')
 vec_S = [0.9,0.5,0.25,0.1,0.01,0.001];
 for k = 1:length(vec_S)
-    S(TB).vS(k).lim = signal_limited(S(TB).DFT,vec_S(k),'middle');
+    S(TB).vS(k).lim = signal_limited(S(TB).DFT,vec_S(k));
     subplot(2,3,k)
     im_plot = abs(ifft2(fftshift( S(TB).vS(k).lim )));
     imshow(im_plot,[])
@@ -154,7 +154,7 @@ ylabel('Rekronstruktionsfejl (andel)')
 figure(10)
 for j = 1:length(vec_N)
     for k = 1:length(vec_S)
-        S(TB).NS(j,k).lim = signal_limited(S(TB).vN(j).DFT,vec_S(k),'middle');
+        S(TB).NS(j,k).lim = signal_limited(S(TB).vN(j).DFT,vec_S(k));
         subplot(length(vec_N),length(vec_S),(j-1)*length(vec_S)+k)
         im_plot = abs(ifft2(fftshift( S(TB).NS(j,k).lim )));
         imshow(im_plot,[])

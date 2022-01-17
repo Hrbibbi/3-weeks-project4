@@ -182,8 +182,8 @@ ylabel('Rekronstruktionsfejl (andel)')
 legend(legends,'Location','northwest')
 
 %% Musehjerte og hoved
-heart = load(['Data\mouseheart.mat']);
-heart = heart.mouse;
+heart = load(['Data\mouse.mat']);
+heart = heart.mouseRe + heart.mouseIm*1i;
 recon_heart = recon_volume(heart,1:size(heart,3));
 
 head = load('Data\head.mat');

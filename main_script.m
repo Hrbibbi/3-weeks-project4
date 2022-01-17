@@ -191,30 +191,24 @@ head = head.headRe + head.headIm*1i;
 recon_head = recon_volume(head,1:size(head,3));
 
 %% Test ortho-slices
-[O1,O2,O3] = ortho_slices(recon_head,1,125,125);
+[O1,O2,O3] = ortho_slices(recon_head,1,160,130);
 
 figure(12)
-
-for k = 1:3
-    n = num2str(k);
-    subplot(2,3,k)
-    O_n = eval(['O' n]);
-    imshow(abs(O_n),[])
-    title(['Slice ' n])
-end
-
+subplot(1,3,1)
+imshow(abs(O1),[]);
+title('Slice 1')
 
 % Resizing the lateral slices, otherwise the image is too thin to see
 % anything
-O2 = imresize(O2,[256,256]);
-O3 = imresize(O3,[256,256]);
+O2 = imresize(O2,[256,64]);
+O3 = imresize(O3,[256,64]);
 
-subplot(2,3,5)
+subplot(1,3,2)
 imshow(abs(O2),[]);
-title('Slice 2 resized')
-subplot(2,3,6)
+title('Slice 2')
+subplot(1,3,3)
 imshow(abs(O3),[]);
-title('Slice 3 resized')
+title('Slice 3')
 
 %% Ukendt Data A
 A = load('Data\A.mat');

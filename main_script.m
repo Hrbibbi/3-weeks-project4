@@ -7,26 +7,26 @@ clc
 % Change this if the folder is located elsewhere.
 path_texture_files = 'textureFiles';
 
-test_uden = generate_simdata(256);
-test_med  = generate_simdata(256,path_texture_files);
+test_without = generate_simdata(256);
+test_with  = generate_simdata(256,path_texture_files);
 shepp_logan = phantom('Modified Shepp-Logan',256);
 
 % Save the images
-imwrite(uint8(255*test_uden),'test_uden.png');
-imwrite(uint8(255*test_med),'test_med.png');
+imwrite(uint8(255*test_without),'test_without.png');
+imwrite(uint8(255*test_with),'test_with.png');
 imwrite(uint8(255*shepp_logan),'Shepp-logan.png');
 
 % Show the created random images
 figure(1)
-sgtitle('Simuleret data')
+sgtitle('Simulated data')
 
 subplot(1,3,1)
-imshow(test_uden);
-title('Testbilledet uden tekstur')
+imshow(test_without);
+title('Test-image without texture')
 
 subplot(1,3,2)
-imshow(test_med);
-title('Testbilledet med tekstur')
+imshow(test_with);
+title('Test-image with texture')
 
 subplot(1,3,3)
 imshow(shepp_logan);
@@ -36,11 +36,11 @@ title('Shepp Logan')
 %% 2D DFT on test images
 close all
 figure(2)
-sgtitle('2D DFT på testbilleder')
+sgtitle('2D DFT of test-images')
 
 % depends on the file names created in current dir, if different just change them to the corresponding ones
-images = {'test_uden.png','test_med.png','Shepp-logan.png'};
-titler = {'Uden tekstur','Med tekstur','Shepp-Logan'};
+images = {'test_without.png','test_with.png','Shepp-logan.png'};
+titler = {'Without texture','With texture','Shepp-Logan'};
 
 for k = 1:3
     S(k).im = readImage(images{k});
@@ -51,10 +51,10 @@ for k = 1:3
     title(titler{k})
 end
 
-%% Generer støj på de DFT transformerede billeder
+%% Generate noise on the DFT transformed images
 figure(3)
 pct = 1;
-sgtitle([num2str(pct) '% støj på DFT-transformerede testbilleder'])
+sgtitle([num2str(pct) '% Noise on DFT transformed test-images'])
 
 for k = 1:3
     S(k).DFT_N = addnoise(S(k).DFT,pct,'p');
@@ -65,15 +65,15 @@ for k = 1:3
     title(titler{k})
 end
 
-%% Rekonstruktion af simuleret data
+%% Reconstruction of simulated data
 figure(4)
-sgtitle('Rekonstruktion af simuleret data')
+sgtitle('Reconstruction of simulated data')
 
 for k = 1:3
     S(k).inv = ifft2(S(k).DFT);
     subplot(2,3,k)
     imshow(S(k).inv,[])
-    title([titler{k} ', støjfri'])
+    title([titler{k} ', Noise free'])
 end
 
 for k = 1:3
@@ -81,20 +81,20 @@ for k = 1:3
     subplot(2,3,3+k)
     im_plot = abs(S(k).inv_N);
     imshow(im_plot,[])
-    title([titler{k} ', støjfyldt'])
+    title([titler{k} ', With Noise'])
 end
 
-%% Test af sampling på støjfyldte og støjfrie sim
+%% Test of sampling on noisy and noise free sim
 figure(5)
 frac = 0.1;
-sgtitle(sprintf('Sampling i DFT med en andel på %d%%',frac*100))
+sgtitle(sprintf('Sampling in DFT with sampling size of %d%%',frac*100))
 
 for k = 1:3
     S(k).lim = signal_limited(S(k).DFT,frac);
     subplot(2,3,k)
     im_plot = abs(ifft2(fftshift(S(k).lim)));
     imshow(im_plot,[])
-    title([titler{k} ', støjfri'])
+    title([titler{k} ', Noise free'])
 end
 
 for k = 1:3
@@ -102,13 +102,13 @@ for k = 1:3
     subplot(2,3,3+k)
     im_plot = abs(ifft2(fftshift(S(k).lim_N)));
     imshow(im_plot,[])
-    title([titler{k} ', støjfyldt'])
+    title([titler{k} ', With noise'])
 end
 
-%% Vektor af støjniveauer
+%% Vektor of noise levels
 figure(6)
-sgtitle('Vektor af støjniveauer')
-TB = 2; % testbillede nr.
+sgtitle('Vektor of noise levels')
+TB = 2; % testimage nr.
 vec_N = [1,5,10,25,50];
 for k = 1:length(vec_N)
     S(TB).vN(k).DFT = addnoise(S(TB).DFT,vec_N(k),'p');
@@ -116,7 +116,7 @@ for k = 1:length(vec_N)
     subplot(2,3,k)
     im_plot = abs( S(TB).vN(k).inv );
     imshow(im_plot,[])
-    title(sprintf('%d%% støj',vec_N(k)))
+    title(sprintf('%d%% noise',vec_N(k)))
     % vec_E(k) = error_measure(S(TB).im,S(TB).vN(k).inv);
     E_N(k) = error_measure(S(TB).im,im_plot);
 end
@@ -125,11 +125,11 @@ figure(7)
 plot(vec_N,E_N,'bo')
 hold on
 plot(vec_N,E_N,'r-')
-title('Rekonstruktion med vektor af støjniveauer')
-xlabel('Støjniveau / %')
-ylabel('Rekronstruktionsfejl (andel)')
+title('Reconstruction with vektor of noise levels')
+xlabel('Noise level / %')
+ylabel('Reconstruction error percentage')
 
-%% Vector af samplings
+%% Vector of samplings
 figure(8)
 sgtitle('Vektor af samplings')
 vec_S = [0.9,0.5,0.25,0.1,0.01,0.001];
@@ -146,11 +146,11 @@ figure(9)
 plot(vec_S,E_S,'bo')
 hold on
 plot(vec_S,E_S,'r-')
-title('Rekonstruktion med vektor af samplings')
-xlabel('Samplingsandel')
-ylabel('Rekronstruktionsfejl (andel)')
+title('Reconstruction with vektor of samplings')
+xlabel('Samplingshare')
+ylabel('Reconstructionshare (andel)')
 
-%% Kombination af støj og samplings
+%% Combination of noise and samplings
 figure(10)
 for j = 1:length(vec_N)
     for k = 1:length(vec_S)
@@ -174,14 +174,14 @@ hold on
 legends = [];
 for k = 1:length(vec_N)
     plot(vec_S,E_NS(k,:),'Marker','o','MarkerEdgeColor','k')
-    legends = [legends, sprintf("%d%% støj",vec_N(k))];
+    legends = [legends, sprintf("%d%% noise",vec_N(k))];
 end
-title('Kombination af støj og samplings-andel')
-xlabel('Samplingsandel')
-ylabel('Rekronstruktionsfejl (andel)')
+title('Combination of noise and sampling percent')
+xlabel('Sampling percent')
+ylabel('Reconstruction percent')
 legend(legends,'Location','northwest')
 
-%% Musehjerte og hoved
+%% Mouseheart and head
 heart = load(['Data\mouse.mat']);
 heart = heart.mouseRe + heart.mouseIm*1i;
 recon_heart = recon_volume(heart,1:size(heart,3));
@@ -210,14 +210,14 @@ subplot(1,3,3)
 imshow(abs(O3),[]);
 title('Slice 3')
 
-%% Ukendt Data A
+%% Unknown Data A
 A = load('Data\A.mat');
 A = A.A;
 A = recon_volume(A,1:256);
 [O1,O2,O3] = ortho_slices(A,130,130,130);
 
 figure(13)
-sgtitle('Ukendt data: objekt A')
+sgtitle('Unknown data: object A')
 subplot(2,2,1)
 imshow(abs(O1),[]);
 title ('Slice 1');
@@ -230,7 +230,7 @@ subplot(2,2,3)
 imshow(imrotate(abs(O3),90),[]);
 title ('Slice 3');
 
-%% Ukendt Data B
+%% Unknown Data B
 
 B = load('Data\B.mat');
 B = B.B;
@@ -238,7 +238,7 @@ B = recon_volume(B,1:70);
 [O1,O2,O3] = ortho_slices(B,60,60,35);
 
 figure(14)
-sgtitle('Ukendt data: objekt B')
+sgtitle('Unknown data: object B')
 subplot(2,2,1)
 imshow(abs(O1),[]);
 title ('Slice 1');

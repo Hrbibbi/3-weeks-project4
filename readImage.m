@@ -6,7 +6,9 @@ function im = readImage(fileName)
 %
 % Date = 01-2022
 
+function im = readImage(fileName)
 im = imread(fileName);
 if any(im > 1)
-    im = 1/255*double(im);
+    im = im/255;
 end
+im = double(im);

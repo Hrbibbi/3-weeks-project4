@@ -14,7 +14,7 @@ arguments
     frac double
 end
 if (frac>1 | frac<0)
-    error('frac is not between 0 and 1)
+    error('frac is not between 0 and 1')
 end
 
 lim_signal = zeros(size(signal));

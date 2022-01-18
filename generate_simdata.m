@@ -45,13 +45,13 @@ switch nargin
         texture{2} = imresize(texture{2},[k,k]);
         texture{3} = imresize(texture{3},[k,k]);
 
-        square = texture{1};
+        square = rescale(texture{1});
 
         texture{2}(triangle == 0) = 0;
-        triangle = texture{2};
+        triangle = rescale(texture{2});
 
         texture{3}(circle == 0) = 0;
-        circle = texture{3};
+        circle = rescale(texture{3});
 end
 
 % Generate random coordinates for the shapes, while making sure that the

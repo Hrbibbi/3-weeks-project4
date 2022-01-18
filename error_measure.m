@@ -9,7 +9,7 @@ function err = error_measure(Data, Reconstruction)
 % Date : 01-2022
 
 if ~all(size(Data) == size(Reconstruction))
-    error('Both matrices must be of same size')
+    error('Matrices must be of same size')
 end
 
 Num = norm(Data - Reconstruction, 'fro');

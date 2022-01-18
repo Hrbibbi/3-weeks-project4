@@ -21,8 +21,7 @@ else
 end
 im = double(im); % in case image is not already double, i.e. uint8
 
-if any(imag(im) ~= 0)
-    % complex
+if any(imag(im) ~= 0) % complex
     r = rand(size(im));
     r = r/norm(r,'fro');
     e_imag = r*norm(imag(im),'fro');
@@ -30,8 +29,7 @@ if any(imag(im) ~= 0)
     r = r/norm(r,'fro');
     e_real = r*norm(real(im),'fro');
     im_noisy = im + tau*(e_real + e_imag*1i);
-else
-    % real
+else % real
     r = rand(size(im));
     r = r/norm(r,'fro');
     e = tau*r*norm(im,'fro');

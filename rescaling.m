@@ -5,7 +5,9 @@ function im_resc = rescaling(in_im)
 % Output: im_resc - the rescaled matrix
 %
 % Date: 01-2022
-
+arguments
+  in_im double
+end
 minv = min(in_im(:));
 maxv = max(in_im(:));
 im_resc = (in_im - minv)/(maxv-minv);
